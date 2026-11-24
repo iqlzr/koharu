@@ -13,6 +13,7 @@ mod preferences;
 mod processing;
 mod project;
 mod scene;
+pub mod speech;
 
 use serde::Serialize;
 use specta::{
@@ -96,6 +97,10 @@ pub fn handler() -> impl Fn(Invoke<CefRuntime>) -> bool + Send + Sync + 'static 
         gallery::read_chapter,
         fonts::list_fonts,
         fonts::get_font_preview,
+        speech::get_speech_speakers,
+        speech::check_speech_service,
+        speech::start_speech_service,
+        speech::synthesize_speech,
         import::import,
         export::export,
         canvas::set_viewport,
@@ -177,6 +182,10 @@ pub fn bindings(types: &mut Types) -> Vec<Function> {
         gallery::read_chapter,
         fonts::list_fonts,
         fonts::get_font_preview,
+        speech::get_speech_speakers,
+        speech::check_speech_service,
+        speech::start_speech_service,
+        speech::synthesize_speech,
         import::import,
         export::export,
         canvas::set_viewport,

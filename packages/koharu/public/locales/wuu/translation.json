@@ -457,7 +457,8 @@
       "gallery": "图库",
       "pipeline": "处理流程",
       "providers": "提供商",
-      "typesetting": "渲染器"
+      "typesetting": "渲染器",
+      "speech": "Speech"
     },
     "title": "设置",
     "typesetting": {
@@ -558,5 +559,33 @@
     "maximize": "最大化",
     "minimize": "最小化",
     "restore": "还原"
+  },
+  "speech": {
+    "title": "Speech",
+    "description": "Configure VOICEVOX text-to-speech service, voice style, and playback speed.",
+    "serviceSection": "VOICEVOX Service",
+    "serviceDescription": "Manage local speech engine connection and background process.",
+    "status": "Service Status",
+    "running": "Service running",
+    "notRunning": "Offline or not started",
+    "online": "Online",
+    "offline": "Offline",
+    "check": "Check",
+    "startService": "Start Service",
+    "starting": "Starting…",
+    "executablePath": "VOICEVOX Executable Path",
+    "executablePathDescription": "Absolute path to local run.exe file.",
+    "endpoint": "API Endpoint",
+    "endpointDescription": "HTTP API endpoint for the VOICEVOX engine.",
+    "voiceSection": "Voice & Speaker Settings",
+    "voiceDescription": "Select default voice style and playback speed.",
+    "speaker": "Speaker & Style",
+    "speakerDescription": "Voice used when speaking source Japanese text in the inspector.",
+    "selectSpeaker": "Select speaker style",
+    "speed": "Speech Speed",
+    "serviceStarted": "VOICEVOX service started",
+    "startFailed": "Failed to start service",
+    "speak": "Read Japanese Text",
+    "stop": "Stop Reading"
   }
 }

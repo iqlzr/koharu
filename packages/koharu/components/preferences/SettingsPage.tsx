@@ -1,6 +1,17 @@
 'use client'
 
-import { ArrowLeft, Cpu, KeyRound, Library, Monitor, Moon, Palette, Sun, Type } from 'lucide-react'
+import {
+  ArrowLeft,
+  Cpu,
+  KeyRound,
+  Library,
+  Monitor,
+  Moon,
+  Palette,
+  Sun,
+  Type,
+  Volume2,
+} from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -14,6 +25,7 @@ import {
   PreferenceSection,
 } from '@/components/preferences/PreferenceFields'
 import { ProviderPreferences } from '@/components/preferences/ProviderPreferences'
+import { SpeechPreferences } from '@/components/preferences/SpeechPreferences'
 import { TypesettingPreferences } from '@/components/preferences/TypesettingPreferences'
 import { nativeNames } from '@/lib/i18n'
 import {
@@ -37,6 +49,7 @@ const tabs = [
   ['providers', KeyRound],
   ['typesetting', Type],
   ['gallery', Library],
+  ['speech', Volume2],
 ] as const
 
 export function SettingsPage() {
@@ -117,6 +130,16 @@ export function SettingsPage() {
             </TabsContent>
             <TabsContent value='gallery'>
               <GalleryPreferences />
+            </TabsContent>
+            <TabsContent value='speech'>
+              {preferences ? (
+                <SpeechPreferences
+                  value={preferences.speech}
+                  onChange={(speech) => edit({ ...preferences, speech })}
+                />
+              ) : (
+                <LoadingPreferences />
+              )}
             </TabsContent>
             <TabsContent value='typesetting'>
               {preferences ? (

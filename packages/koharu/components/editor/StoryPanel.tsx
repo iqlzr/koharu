@@ -2,8 +2,8 @@
 
 import { useMutation } from '@tanstack/react-query'
 import { defaultRangeExtractor, observeElementRect, useVirtualizer } from '@tanstack/react-virtual'
-import { Languages, MoreHorizontal } from 'lucide-react'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { Languages, Loader2, MoreHorizontal, Square, Volume2 } from 'lucide-react'
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { CommitTextarea } from '@/components/controls/CommitTextarea'
@@ -18,7 +18,10 @@ import {
 } from '@/lib/document'
 import { send, usePageStory, useProject } from '@/lib/queries'
 import { deleteLayers, setSourceText, setText } from '@/lib/scene'
+import { useSpeechPlayback } from '@/lib/speech'
 import { useKoharuStore } from '@/lib/store'
+
+const SpeechPlaybackContext = createContext<ReturnType<typeof useSpeechPlayback> | null>(null)
 import { commands, type LayerId, type PageId } from '@koharu/ipc/protocol'
 import { Button } from '@koharu/ui/components/button'
 import {
@@ -40,6 +43,7 @@ import { cn } from '@koharu/ui/lib/utils'
  * the change came from the list itself. */
 export function StoryPanel() {
   const { t } = useTranslation()
+  const speech = useSpeechPlayback()
   const project = useProject().data
   const pages = project?.pages ?? []
   const shown = project?.page ?? null
@@ -80,29 +84,31 @@ export function StoryPanel() {
     )
   }
   return (
-    <ScrollArea className='min-h-0 flex-1' viewportClassName='p-1' viewportRef={list}>
-      <div className='relative w-full' style={{ height: virtualizer.getTotalSize() }}>
-        {virtualizer.getVirtualItems().map((item) => {
-          const page = pages[item.index]
-          if (!page) return null
-          return (
-            <div
-              key={item.key}
-              ref={virtualizer.measureElement}
-              data-index={item.index}
-              className='absolute top-0 left-0 w-full'
-              style={{ transform: `translateY(${item.start}px)` }}
-              onFocus={() => setFocused(item.index)}
-              onBlur={(event) => {
-                if (!event.currentTarget.contains(event.relatedTarget)) setFocused(null)
-              }}
-            >
-              <StoryPage page={page.id} number={item.index + 1} shown={page.id === shown} />
-            </div>
-          )
-        })}
-      </div>
-    </ScrollArea>
+    <SpeechPlaybackContext.Provider value={speech}>
+      <ScrollArea className='min-h-0 flex-1' viewportClassName='p-1' viewportRef={list}>
+        <div className='relative w-full' style={{ height: virtualizer.getTotalSize() }}>
+          {virtualizer.getVirtualItems().map((item) => {
+            const page = pages[item.index]
+            if (!page) return null
+            return (
+              <div
+                key={item.key}
+                ref={virtualizer.measureElement}
+                data-index={item.index}
+                className='absolute top-0 left-0 w-full'
+                style={{ transform: `translateY(${item.start}px)` }}
+                onFocus={() => setFocused(item.index)}
+                onBlur={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) setFocused(null)
+                }}
+              >
+                <StoryPage page={page.id} number={item.index + 1} shown={page.id === shown} />
+              </div>
+            )
+          })}
+        </div>
+      </ScrollArea>
+    </SpeechPlaybackContext.Provider>
   )
 }
 
@@ -205,6 +211,7 @@ function StoryText({
   locked: boolean
 }) {
   const { t } = useTranslation()
+  const speech = useContext(SpeechPlaybackContext)
   const row = useRef<HTMLDivElement>(null)
   const ids = isBlockLayer(layer)
     ? [layer.id, layer.cleanup?.id, layer.mask?.id].filter((id): id is LayerId => id !== undefined)
@@ -275,6 +282,46 @@ function StoryText({
             </TooltipTrigger>
             <TooltipContent side='left'>
               {t('story.translate', { name: plainText(layer.source) })}
+            </TooltipContent>
+          </Tooltip>
+        )}
+        {isBlockLayer(layer) && plainText(layer.source).trim() && speech && (
+          <Tooltip>
+            <TooltipTrigger
+              render={
+                <Button
+                  type='button'
+                  variant='outline'
+                  size='icon-xs'
+                  aria-label={
+                    speech.playingLayerId === String(layer.id)
+                      ? t('speech.stop', '停止朗讀')
+                      : t('speech.speak', '朗讀日文原文')
+                  }
+                  className='size-5 rounded-md border-primary/20 bg-primary/15 text-accent-foreground opacity-0 group-hover:opacity-100 group-data-[selected=true]:opacity-100 hover:bg-primary/25 hover:text-accent-foreground focus-visible:opacity-100 dark:border-primary/30 dark:bg-primary/25 dark:hover:bg-primary/35'
+                  onClick={() => {
+                    const idStr = String(layer.id)
+                    if (speech.playingLayerId === idStr || speech.synthesizingLayerId === idStr) {
+                      speech.stop()
+                    } else {
+                      void speech.speak(idStr, plainText(layer.source))
+                    }
+                  }}
+                />
+              }
+            >
+              {speech.synthesizingLayerId === String(layer.id) ? (
+                <Loader2 className='size-3 animate-spin text-primary' />
+              ) : speech.playingLayerId === String(layer.id) ? (
+                <Square className='size-3 fill-current text-primary' />
+              ) : (
+                <Volume2 className='size-3' />
+              )}
+            </TooltipTrigger>
+            <TooltipContent side='left'>
+              {speech.playingLayerId === String(layer.id)
+                ? t('speech.stop', '停止朗讀')
+                : t('speech.speak', '朗讀日文原文')}
             </TooltipContent>
           </Tooltip>
         )}

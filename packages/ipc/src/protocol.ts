@@ -739,6 +739,7 @@ export type Preferences = {
   renderer: RendererConfig
   agent: AgentConfig
   providers: Providers
+  speech: SpeechConfig
 }
 
 export type ProjectAnswer = {
@@ -920,6 +921,18 @@ export type Span = {
   attributes?: CharStyle
 }
 
+export type SpeechConfig = {
+  endpoint?: string
+  executable_path?: string
+  speaker_id?: number
+  speed_scale?: number
+}
+
+export type SpeechServiceStatus = {
+  running: boolean
+  message: string | null
+}
+
 /**  A stage, in the order a page's stages run. */
 export type Stage = 'detect' | 'recognize' | 'inpaint' | 'translate'
 
@@ -1076,6 +1089,17 @@ export type Vendor = {
   connected: boolean
 }
 
+export type VoiceSpeaker = {
+  name: string
+  speaker_uuid: string
+  styles: VoiceSpeakerStyle[]
+}
+
+export type VoiceSpeakerStyle = {
+  id: number
+  name: string
+}
+
 export const commands = {
   listProjects: () =>
     runner('list_projects', (options) => invoke<string[]>('list_projects', {}, options)),
@@ -1186,6 +1210,22 @@ export const commands = {
   getFontPreview: (family: string) =>
     runner('get_font_preview', (options) =>
       invoke<ArrayBuffer>('get_font_preview', { family }, options),
+    ),
+  getSpeechSpeakers: (endpoint: string | null) =>
+    runner('get_speech_speakers', (options) =>
+      invoke<VoiceSpeaker[]>('get_speech_speakers', { endpoint }, options),
+    ),
+  checkSpeechService: (endpoint: string | null) =>
+    runner('check_speech_service', (options) =>
+      invoke<SpeechServiceStatus>('check_speech_service', { endpoint }, options),
+    ),
+  startSpeechService: (executablePath: string | null) =>
+    runner('start_speech_service', (options) =>
+      invoke<SpeechServiceStatus>('start_speech_service', { executablePath }, options),
+    ),
+  synthesizeSpeech: (text: string, speakerId: number | null, speedScale: number | null) =>
+    runner('synthesize_speech', (options) =>
+      invoke<ArrayBuffer>('synthesize_speech', { text, speakerId, speedScale }, options),
     ),
   /** Picks files or a folder and adds their pages after the project's last: the files in name order, numbers by value, an archive's or a PDF's own pages in theirs. */
   import: (source: ImportSource) =>

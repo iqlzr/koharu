@@ -457,7 +457,8 @@
       "gallery": "图库",
       "pipeline": "流水线",
       "providers": "提供商",
-      "typesetting": "渲染器"
+      "typesetting": "渲染器",
+      "speech": "语音朗读"
     },
     "title": "设置",
     "typesetting": {
@@ -558,5 +559,33 @@
     "maximize": "最大化",
     "minimize": "最小化",
     "restore": "还原"
+  },
+  "speech": {
+    "title": "语音朗读",
+    "description": "配置 VOICEVOX 朗读服务、角色声线与发音速度。",
+    "serviceSection": "VOICEVOX 服务",
+    "serviceDescription": "管理本机语音引擎连接与后台进程。",
+    "status": "服务状态",
+    "running": "服务运行中",
+    "notRunning": "未连接或未启动",
+    "online": "在线",
+    "offline": "离线",
+    "check": "检查",
+    "startService": "启动服务",
+    "starting": "启动中…",
+    "executablePath": "VOICEVOX 路径",
+    "executablePathDescription": "本机 run.exe 文件的绝对路径。",
+    "endpoint": "API 端点",
+    "endpointDescription": "VOICEVOX 引擎的 HTTP API 地址。",
+    "voiceSection": "声音与角色设置",
+    "voiceDescription": "选取默认朗读声线与语速。",
+    "speaker": "朗读角色与风格",
+    "speakerDescription": "点击属性面板原文朗读时所使用的声音。",
+    "selectSpeaker": "选择角色声线",
+    "speed": "朗读语速",
+    "serviceStarted": "VOICEVOX 服务已启动",
+    "startFailed": "启动服务失败",
+    "speak": "朗读日文原文",
+    "stop": "停止朗读"
   }
 }

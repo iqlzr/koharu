@@ -457,7 +457,8 @@
       "gallery": "ギャラリー",
       "pipeline": "パイプライン",
       "providers": "プロバイダー",
-      "typesetting": "レンダラー"
+      "typesetting": "レンダラー",
+      "speech": "音声読み上げ"
     },
     "title": "設定",
     "typesetting": {
@@ -558,5 +559,33 @@
     "maximize": "最大化",
     "minimize": "最小化",
     "restore": "元のサイズに戻す"
+  },
+  "speech": {
+    "title": "音声読み上げ",
+    "description": "VOICEVOX 読み上げサービス、キャラクター音声、話速を設定します。",
+    "serviceSection": "VOICEVOX サービス",
+    "serviceDescription": "ローカル音声エンジンの接続とプロセスを管理します。",
+    "status": "サービス状態",
+    "running": "サービス実行中",
+    "notRunning": "未接続または未起動",
+    "online": "オンライン",
+    "offline": "オフライン",
+    "check": "確認",
+    "startService": "サービス起動",
+    "starting": "起動中…",
+    "executablePath": "VOICEVOX パス",
+    "executablePathDescription": "ローカルの run.exe の絶対パス。",
+    "endpoint": "API エンドポイント",
+    "endpointDescription": "VOICEVOX エンジンの HTTP API アドレス。",
+    "voiceSection": "音声とキャラクター設定",
+    "voiceDescription": "デフォルトの音声スタイルと話速を選択します。",
+    "speaker": "読み上げキャラクターとスタイル",
+    "speakerDescription": "原文読み上げ時に使用する音声。",
+    "selectSpeaker": "スタイルを選択",
+    "speed": "話速",
+    "serviceStarted": "VOICEVOX サービスが起動しました",
+    "startFailed": "サービスの起動に失敗しました",
+    "speak": "原文を読み上げ",
+    "stop": "読み上げ停止"
   }
 }
