@@ -432,7 +432,8 @@
       "providers": "제공자",
       "shortcuts": "단축키",
       "translation": "번역",
-      "typesetting": "조판"
+      "typesetting": "조판",
+      "speech": "음성 낭독"
     },
     "title": "설정",
     "translation": {
@@ -535,5 +536,33 @@
     "maximize": "최대화",
     "minimize": "최소화",
     "restore": "복원"
+  },
+  "speech": {
+    "title": "음성 낭독",
+    "description": "VOICEVOX 낭독 서비스, 캐릭터 음성 및 말하기 속도를 설정합니다.",
+    "serviceSection": "VOICEVOX 서비스",
+    "serviceDescription": "로컬 음성 엔진 연결 및 백그라운드 프로세스를 관리합니다.",
+    "status": "서비스 상태",
+    "running": "서비스 실행 중",
+    "notRunning": "연결되지 않음 또는 중지됨",
+    "online": "온라인",
+    "offline": "오프라인",
+    "check": "확인",
+    "startService": "서비스 시작",
+    "starting": "시작 중…",
+    "executablePath": "VOICEVOX 실행 경로",
+    "executablePathDescription": "로컬 run.exe 파일의 절대 경로입니다.",
+    "endpoint": "API 엔드포인트",
+    "endpointDescription": "VOICEVOX 엔진의 HTTP API 주소입니다.",
+    "voiceSection": "음성 및 캐릭터 설정",
+    "voiceDescription": "기본 음성 스타일과 말하기 속도를 선택합니다.",
+    "speaker": "낭독 캐릭터 및 스타일",
+    "speakerDescription": "인스펙터에서 일본어 원문을 낭독할 때 사용할 음성입니다.",
+    "selectSpeaker": "캐릭터 음성 선택",
+    "speed": "낭독 속도",
+    "serviceStarted": "VOICEVOX 서비스가 시작되었습니다",
+    "startFailed": "서비스 시작 실패",
+    "speak": "일본어 원문 낭독",
+    "stop": "낭독 중지"
   }
 }

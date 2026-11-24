@@ -432,7 +432,8 @@
       "providers": "提供者",
       "shortcuts": "快捷鍵",
       "translation": "譯文",
-      "typesetting": "排版"
+      "typesetting": "排版",
+      "speech": "語音朗讀"
     },
     "title": "設定",
     "translation": {
@@ -535,5 +536,33 @@
     "maximize": "最大化",
     "minimize": "最小化",
     "restore": "還原"
+  },
+  "speech": {
+    "title": "語音朗讀",
+    "description": "設定 VOICEVOX 朗讀服務、角色聲線與發音速度。",
+    "serviceSection": "VOICEVOX 服務",
+    "serviceDescription": "管理本機語音引擎連線與背景進程。",
+    "status": "服務狀態",
+    "running": "服務運行中",
+    "notRunning": "未連線或未啟動",
+    "online": "在線",
+    "offline": "離線",
+    "check": "檢查",
+    "startService": "啟動服務",
+    "starting": "啟動中…",
+    "executablePath": "VOICEVOX 路徑",
+    "executablePathDescription": "本機 run.exe 檔案的絕對路徑。",
+    "endpoint": "API 端點",
+    "endpointDescription": "VOICEVOX 引擎的 HTTP API 位址。",
+    "voiceSection": "聲音與角色設定",
+    "voiceDescription": "選取預設朗讀聲線與語速。",
+    "speaker": "朗讀角色與風格",
+    "speakerDescription": "點擊屬性面板原文朗讀時所使用的聲音。",
+    "selectSpeaker": "選擇角色聲線",
+    "speed": "朗讀語速",
+    "serviceStarted": "VOICEVOX 服務已啟動",
+    "startFailed": "啟動服務失敗",
+    "speak": "朗讀日文原文",
+    "stop": "停止朗讀"
   }
 }

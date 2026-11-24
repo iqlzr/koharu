@@ -41,9 +41,13 @@ export const commands = {
 	getThumbnail: (page: EntityId) => __TAURI_INVOKE<ThumbnailBytes>("get_thumbnail", { page }),
 	getFonts: () => __TAURI_INVOKE<FontFamily[]>("get_fonts"),
 	getFontPreview: (familyName: string) => __TAURI_INVOKE<FontPreviewBytes>("get_font_preview", { familyName }),
-	savePreferences: (pipeline: PipelineConfig, providers: ProviderPreferences, typesetting: TypesettingConfig) => __TAURI_INVOKE<Preferences>("save_preferences", { pipeline, providers, typesetting }),
+	savePreferences: (pipeline: PipelineConfig, providers: ProviderPreferences, typesetting: TypesettingConfig, speech: SpeechConfig) => __TAURI_INVOKE<Preferences>("save_preferences", { pipeline, providers, typesetting, speech }),
 	getPreferences: () => __TAURI_INVOKE<Preferences>("get_preferences"),
 	getTranslationModels: () => __TAURI_INVOKE<Model[]>("get_translation_models"),
+	getSpeechSpeakers: (endpoint: string | null) => __TAURI_INVOKE<VoiceSpeaker[]>("get_speech_speakers", { endpoint }),
+	checkSpeechService: (endpoint: string | null) => __TAURI_INVOKE<SpeechServiceStatus>("check_speech_service", { endpoint }),
+	startSpeechService: (executablePath: string | null) => __TAURI_INVOKE<SpeechServiceStatus>("start_speech_service", { executablePath }),
+	synthesizeSpeech: (text: string, speakerId: number | null, speedScale: number | null) => __TAURI_INVOKE<number[]>("synthesize_speech", { text, speakerId, speedScale }),
 	getCanvasManifest: (generation: CanvasGeneration) => __TAURI_INVOKE<CanvasBytes>("get_canvas_manifest", { generation }),
 	getCanvasResource: (generation: CanvasGeneration, resource: string) => __TAURI_INVOKE<CanvasBytes>("get_canvas_resource", { generation, resource }),
 	prepareCanvasPage: (page: EntityId) => __TAURI_INVOKE<CanvasPagePreparation | null>("prepare_canvas_page", { page }),
@@ -381,6 +385,7 @@ export type Preferences = {
 	pipeline: PipelineConfig,
 	providers: ProviderPreferences,
 	typesetting: TypesettingConfig,
+	speech: SpeechConfig,
 	languages: LanguageChoice[],
 };
 
@@ -443,6 +448,29 @@ export type Scope = { scope: "project" } | { scope: "pages"; value: EntityId[] }
 export type SourceText = {
 	text: string,
 	language: string | null,
+};
+
+export type SpeechConfig = {
+	endpoint: string,
+	executable_path: string,
+	speaker_id: number,
+	speed_scale: number,
+};
+
+export type VoiceSpeakerStyle = {
+	id: number,
+	name: string,
+};
+
+export type VoiceSpeaker = {
+	name: string,
+	speaker_uuid: string,
+	styles: VoiceSpeakerStyle[],
+};
+
+export type SpeechServiceStatus = {
+	running: boolean,
+	message: string | null,
 };
 
 export type Stage = "detection" | "ocr" | "translation" | "inpainting";

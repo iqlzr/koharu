@@ -14,12 +14,15 @@ import {
   Folder,
   Image as ImageIcon,
   Layers3,
+  Loader2,
   Lock,
   Minus,
   Plus,
   RotateCcw,
+  Square,
   Trash2,
   Type,
+  Volume2,
 } from 'lucide-react'
 import { type MouseEvent, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -36,6 +39,7 @@ import {
   layerChildren,
 } from '@/lib/document'
 import { pageKey, projectKey, queryClient, refresh, useFonts, usePage } from '@/lib/queries'
+import { useSpeechPlayback } from '@/lib/speech'
 import { useKoharuStore } from '@/lib/store'
 import { previewCanvasOpacity } from '@koharu/bridge/canvas'
 import {
@@ -772,6 +776,7 @@ function LayerEditor({ layer, onDelete }: { layer: Layer; onDelete?: () => void 
   const { t } = useTranslation()
   const name = localizedLayerName(layer, 0, t)
   const [opacity, setOpacity] = useState(layer.visibility.opacity * 100)
+  const { speak, stop, playingLayerId, synthesizingLayerId } = useSpeechPlayback()
 
   useEffect(() => {
     setOpacity(layer.visibility.opacity * 100)
@@ -873,7 +878,38 @@ function LayerEditor({ layer, onDelete }: { layer: Layer; onDelete?: () => void 
               </Tooltip>
             )}
           </div>
-          <InspectorField label={t('inspector.source')}>
+          <InspectorField
+            label={t('inspector.source')}
+            action={
+              layer.content.source?.text?.trim() ? (
+                <button
+                  type='button'
+                  aria-label={
+                    playingLayerId === layer.id
+                      ? t('speech.stop', '停止朗讀')
+                      : t('speech.speak', '朗讀日文原文')
+                  }
+                  className='flex items-center gap-1 rounded px-1 py-0.5 text-[9px] text-muted-foreground hover:bg-foreground/[0.06] hover:text-foreground'
+                  onClick={() => {
+                    if (playingLayerId === layer.id || synthesizingLayerId === layer.id) {
+                      stop()
+                    } else {
+                      void speak(layer.id, layer.content.source?.text ?? '')
+                    }
+                  }}
+                >
+                  {synthesizingLayerId === layer.id ? (
+                    <Loader2 className='size-3 animate-spin text-primary' />
+                  ) : playingLayerId === layer.id ? (
+                    <Square className='size-3 fill-current text-primary' />
+                  ) : (
+                    <Volume2 className='size-3' />
+                  )}
+                  <span className='sr-only'>{t('speech.speak', '朗讀日文原文')}</span>
+                </button>
+              ) : null
+            }
+          >
             <CommitTextarea
               data-testid={`edit-source-${layer.id}`}
               aria-label={t('layers.sourceLabel', { name })}
@@ -907,12 +943,23 @@ function LayerEditor({ layer, onDelete }: { layer: Layer; onDelete?: () => void 
   )
 }
 
-function InspectorField({ label, children }: { label: string; children: React.ReactNode }) {
+function InspectorField({
+  label,
+  action,
+  children,
+}: {
+  label: string
+  action?: React.ReactNode
+  children: React.ReactNode
+}) {
   return (
     <div className='grid min-w-0 gap-0.5'>
-      <span className='text-[8px] font-medium tracking-[0.06em] text-muted-foreground uppercase'>
-        {label}
-      </span>
+      <div className='flex items-center justify-between'>
+        <span className='text-[8px] font-medium tracking-[0.06em] text-muted-foreground uppercase'>
+          {label}
+        </span>
+        {action}
+      </div>
       {children}
     </div>
   )

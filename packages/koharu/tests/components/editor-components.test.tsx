@@ -182,6 +182,12 @@ const preferences: Preferences = {
   typesetting: {
     font_families: ['Noto Sans'],
   },
+  speech: {
+    endpoint: 'http://127.0.0.1:50021',
+    executable_path: 'G:\\voicevox-engine\\run.exe',
+    speaker_id: 3,
+    speed_scale: 1.0,
+  },
   languages: [
     { tag: 'en-US', name: 'English' },
     { tag: 'ja-JP', name: 'Japanese' },

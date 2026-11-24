@@ -8,6 +8,7 @@ pub(crate) mod output;
 pub(crate) mod preferences;
 pub(crate) mod processing;
 pub(crate) mod project;
+pub(crate) mod speech;
 
 use parking_lot::Mutex;
 use serde::Serialize;
@@ -95,6 +96,10 @@ pub fn bindings() -> tauri_specta::Builder<tauri_runtime_cef::CefRuntime> {
             preferences::save_preferences,
             preferences::get_preferences,
             preferences::get_translation_models,
+            speech::get_speech_speakers,
+            speech::check_speech_service,
+            speech::start_speech_service,
+            speech::synthesize_speech,
             canvas::get_canvas_manifest,
             canvas::get_canvas_resource,
             canvas::prepare_canvas_page,

@@ -432,7 +432,8 @@
       "providers": "プロバイダー",
       "shortcuts": "ショートカット",
       "translation": "翻訳",
-      "typesetting": "組版"
+      "typesetting": "組版",
+      "speech": "音声読み上げ"
     },
     "title": "設定",
     "translation": {
@@ -535,5 +536,33 @@
     "maximize": "最大化",
     "minimize": "最小化",
     "restore": "元のサイズに戻す"
+  },
+  "speech": {
+    "title": "音声読み上げ",
+    "description": "VOICEVOX 読み上げサービス、話者スタイルおよび話速を設定します。",
+    "serviceSection": "VOICEVOX サービス",
+    "serviceDescription": "ローカル音声エンジンの接続とバックグラウンドプロセスを管理します。",
+    "status": "サービス状態",
+    "running": "サービス稼働中",
+    "notRunning": "未接続または停止中",
+    "online": "オンライン",
+    "offline": "オフライン",
+    "check": "確認",
+    "startService": "サービス起動",
+    "starting": "起動中…",
+    "executablePath": "VOICEVOX 実行ファイルパス",
+    "executablePathDescription": "ローカル run.exe ファイルの絶対パス。",
+    "endpoint": "API エンドポイント",
+    "endpointDescription": "VOICEVOX エンジンの HTTP API アドレス。",
+    "voiceSection": "話者・音声設定",
+    "voiceDescription": "デフォルトの話者スタイルと読み上げ速度を選択します。",
+    "speaker": "話者とスタイル",
+    "speakerDescription": "インスペクターで原文を読み上げる際に使用する音声。",
+    "selectSpeaker": "話者スタイルを選択",
+    "speed": "読み上げ速度",
+    "serviceStarted": "VOICEVOX サービスを起動しました",
+    "startFailed": "サービスの起動に失敗しました",
+    "speak": "日本語原文を読み上げる",
+    "stop": "読み上げ停止"
   }
 }

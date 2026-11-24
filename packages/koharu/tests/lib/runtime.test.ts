@@ -49,6 +49,12 @@ const preferences: Preferences = {
   typesetting: {
     font_families: ['CCWildWords', 'Adobe 黑体 Std'],
   },
+  speech: {
+    endpoint: 'http://127.0.0.1:50021',
+    executable_path: 'G:\\voicevox-engine\\run.exe',
+    speaker_id: 3,
+    speed_scale: 1.0,
+  },
   languages: [],
 }
 
