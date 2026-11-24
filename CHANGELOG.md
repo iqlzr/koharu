@@ -1,3 +1,14 @@
+## [0.94.1](https://github.com/koharu-rs/koharu/compare/0.94.0..0.94.1) - 2026-11-24
+
+### 🐛 Bug Fixes
+
+- *(gallery)* Keep a long chapter's project name within Linux's 255-byte file names, cutting the series first ([#1516](https://github.com/koharu-rs/koharu/issues/1516)) - ([ed745a2](https://github.com/koharu-rs/koharu/commit/ed745a238cf62a5122ad5c42857dc966524f65ce))
+
+### ⚙️ Miscellaneous Tasks
+
+- Update sponsors ([#1312](https://github.com/koharu-rs/koharu/issues/1312)) - ([b17d065](https://github.com/koharu-rs/koharu/commit/b17d0657b57afa0db4734dc5f6e0e7ecd770f737))
+- Remove standalone Kindle script - ([b4e87c0](https://github.com/koharu-rs/koharu/commit/b4e87c006ebc0cf63d3cfcb693e13bf501ff6b7f))
+
 ## [0.94.0](https://github.com/koharu-rs/koharu/compare/0.93.0..0.94.0) - 2026-11-23
 
 ### ⛰️  Features
